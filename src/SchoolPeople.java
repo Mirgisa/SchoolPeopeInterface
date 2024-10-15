@@ -19,103 +19,52 @@ import java.util.ArrayList;
 import java.util.List;
 
 public interface SchoolPeople {
-    void executeJob(Person person);
-
     void printJobDescription();
     List<Person> printPeople();
-    void addPerson();
-    void removePerson();
-
     void addPerson(Person person);
-
     void removePerson(Person person);
-
     void executeJob();
-
 }
 abstract class SchoolWorker implements SchoolPeople{
-    protected List<Person> people;
-  //  protected String name;
-    protected String jobTittle;
-    public SchoolWorker( String jobTittle){
-        this.jobTittle = jobTittle;
-       // this.name = name;
-        this.people = new ArrayList<>();
-    }
-
-    public String getJobTittle() {
-        return jobTittle;
-    }
-
-    @Override
-    public List<Person> printPeople() {
-        return List.of();
-    }
-
+    protected List<Person> workers = new ArrayList<>();
     @Override
     public void addPerson(Person person) {
-        people.add(person);
-        System.out.println("New School Workers :"+person.name+" "+ person.age);
+        workers.add(person);
     }
 
     @Override
     public void removePerson(Person person) {
-        people.remove(person);
-        System.out.println("The School Worker "+person.getName()+ " is Fired from work");
-
-    }
-
-    @Override
-    public void executeJob(Person person) {
-        System.out.println(person + " is Our worker");
-
-    }
-
-    @Override
-    public void printJobDescription() {
-
-    }
-}
-abstract class SchoolStudent implements SchoolPeople{
-    protected List<Person> student;
-    protected String department;
-    protected double grade;
-    public SchoolStudent( String department, double grade){
-        this.department = department;
-        this.grade = grade;
-        this.student = new ArrayList<>();
-    }
-
-    public List<Person> getStudent() {
-        return student;
-    }
-
-    public double getGrade() {
-        return grade;
-    }
-
-    public String getDepartment() {
-        return department;
-    }
-
-    @Override
-    public void addPerson(Person person) {
-        System.out.println("Student"+person.getName()+ " is added");
-    }
-
-    @Override
-    public void removePerson() {
-
+        workers.remove(person);
     }
 
     @Override
     public List<Person> printPeople() {
-        return List.of();
+        System.out.println("Workers: ");
+        for (Person worker : workers) {
+            System.out.println(worker);
+        }
+        return null;
+    }
+}
+abstract class SchoolStudent implements SchoolPeople{
+    protected List<Person> students = new ArrayList<>();
+    @Override
+    public void addPerson(Person person) {
+        students.add(person);
     }
 
     @Override
-    public void printJobDescription() {
+    public void removePerson(Person person) {
+        students.remove(person);
+    }
 
+    @Override
+    public List<Person> printPeople() {
+        System.out.println("Students: ");
+        for (Person student : students) {
+            System.out.println(student);
+        }
+        return null;
     }
 }
 class Person{
@@ -136,69 +85,45 @@ class Person{
 }
 class FirstGradeStudents extends SchoolStudent{
 
-    public FirstGradeStudents(String department, double grade) {
-        super(department, grade);
+    private String grade;
+
+    public FirstGradeStudents() {
+        this.grade = "First Grade";
     }
 
     @Override
-    public void executeJob(Person person) {
-
-    }
-
-    @Override
-    public void addPerson() {
-
-    }
-
-    @Override
-    public void removePerson(Person person) {
-
+    public void printJobDescription() {
+        System.out.println("First-grade students attend classes and learn basic subjects.");
     }
 
     @Override
     public void executeJob() {
-
+        System.out.println("First-grade students are studying!");
     }
 }
 class SchoolCleaners extends SchoolWorker{
 
-    public SchoolCleaners(String jobTittle) {
-        super(jobTittle);
-    }
 
     @Override
-    public void addPerson() {
-
-    }
-
-    @Override
-    public void removePerson() {
-
+    public void printJobDescription() {
+        System.out.println("School cleaners maintain the cleanliness of the school.");
     }
 
     @Override
     public void executeJob() {
-
+        System.out.println("School cleaners are cleaning the school!");
     }
 }
 class SchoolTeachers extends SchoolWorker{
 
-    public SchoolTeachers(String jobTittle) {
-        super(jobTittle);
-    }
 
     @Override
-    public void addPerson() {
-
-    }
-
-    @Override
-    public void removePerson() {
-
+    public void printJobDescription() {
+        System.out.println("School teachers teach students and help them learn new things.");
     }
 
     @Override
     public void executeJob() {
-
+        System.out.println("School teachers are teaching!");
     }
 }
